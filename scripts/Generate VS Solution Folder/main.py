@@ -47,9 +47,9 @@ UniqueIdentifier_Resource_files = "67DA6AB6-F800-4c08-8B7A-83BB121AAD01"
 
 
 project_sln = r"""
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjectName", "ProjectName\ProjectName.vcxproj", "{OriginalUUID}"
+Project("{your_uuid}") = "ProjectName", "ProjectName\ProjectName.vcxproj", "{OriginalUUID}"
 EndProject
-""".rstrip("\n")
+""".rstrip("\n").replace("your_uuid", your_uuid)
 
 template_sln = r"""
 Microsoft Visual Studio Solution File, Format Version 12.00
@@ -70,10 +70,10 @@ Global
         HideSolutionNode = FALSE
     EndGlobalSection
     GlobalSection(ExtensibilityGlobals) = postSolution
-        SolutionGuid = {A38FAAC1-2E77-4411-A820-E1F55EA1649D}
+        SolutionGuid = {OriginalSolutionGUID}
     EndGlobalSection
 EndGlobal
-""".replace("A38FAAC1-2E77-4411-A820-E1F55EA1649D", str(uuid.uuid4())).strip("\n")
+""".replace("OriginalSolutionGUID", str(uuid.uuid4())).strip("\n")
 
 vcxproj_template = r"""
 <?xml version="1.0" encoding="utf-8"?>
@@ -211,22 +211,22 @@ vcxproj_template = r"""
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
 </Project>
-""".replace("eaf8ccb8-d8a0-4395-a1c0-7bb233c51414", str(uuid.uuid4())).strip("\n").replace("Source.cpp", source_file_name)
+""".strip("\n").replace("Source.cpp", source_file_name)
 
 vcxproj_filters_template = r"""
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <UniqueIdentifier>{Original_UniqueIdentifier_Source_files}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <UniqueIdentifier>{Original_UniqueIdentifier_Header_files}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <UniqueIdentifier>{Original_UniqueIdentifier_Resource_files}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
@@ -236,7 +236,7 @@ vcxproj_filters_template = r"""
     </ClCompile>
   </ItemGroup>
 </Project>
-""".strip("\n").replace("Source.cpp", source_file_name).replace("4FC737F1-C7A5-4376-A066-2A32D752A2FF", UniqueIdentifier_Source_files).replace("93995380-89BD-4b04-88EB-625FBE52EBFB", UniqueIdentifier_Header_files).replace("67DA6AB6-F800-4c08-8B7A-83BB121AAD01", UniqueIdentifier_Resource_files)
+""".strip("\n").replace("Source.cpp", source_file_name).replace("Original_UniqueIdentifier_Source_files", UniqueIdentifier_Source_files).replace("Original_UniqueIdentifier_Header_files", UniqueIdentifier_Header_files).replace("Original_UniqueIdentifier_Resource_files", UniqueIdentifier_Resource_files)
 
 vcxproj_user_template = r"""
 <?xml version="1.0" encoding="utf-8"?>
